@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark" class="ypt-ui">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube Persian Translator</title>
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <header class="head">
+        <div class="brand">
+          <span class="logo" aria-hidden="true">فا</span>
+          <div class="brand-text">
+            <h1>ترجمهٔ یوتیوب</h1>
+            <p id="provider-line" class="muted">در حال بارگذاری…</p>
+          </div>
+        </div>
+        <label class="switch" title="فعال/غیرفعال کردن ترجمه" role="switch" aria-checked="false">
+          <input id="enabled" type="checkbox" />
+          <span class="track"><span class="thumb"></span></span>
+        </label>
+        <button id="themeToggle" type="button" class="ghost icon-btn" title="تغییر حالت روشن/تاریک" aria-label="تغییر حالت روشن/تاریک">☀️</button>
+      </header>
+
+      <section class="card">
+        <div class="field">
+          <label for="provider">مترجم</label>
+          <select id="provider"></select>
+        </div>
+
+        <div class="field">
+          <label for="targetLang">زبان مقصد</label>
+          <select id="targetLang"></select>
+        </div>
+
+        <div class="field">
+          <label for="dubbing">دوبلهٔ صوتی</label>
+          <label class="switch small">
+            <input id="dubbing" type="checkbox" />
+            <span class="track"><span class="thumb"></span></span>
+          </label>
+        </div>
+
+        <div class="field" id="engine-row">
+          <label for="dubbingEngine">موتور دوبله</label>
+          <select id="dubbingEngine">
+            <option value="browser">مرورگر (سریع، رایگان)</option>
+            <option value="gemini">Gemini (کیفیت بالا)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="bilingual">نمایش متن اصلی</label>
+          <label class="switch small">
+            <input id="bilingual" type="checkbox" />
+            <span class="track"><span class="thumb"></span></span>
+          </label>
+        </div>
+      </section>
+
+      <p id="hint" class="hint"></p>
+
+      <div class="actions">
+        <button id="test" type="button" class="ghost">تست ترجمه</button>
+        <button id="settings" type="button" class="primary">تنظیمات کامل</button>
+      </div>
+
+      <button id="clearCache" type="button" class="link">پاک‌سازی کش ترجمه</button>
+
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+
+      <footer class="foot">
+        <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> ترجمه</span>
+        <span><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> دوبله</span>
+      </footer>
+    </main>
+
+    <script src="providers.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

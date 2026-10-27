@@ -1,0 +1,85 @@
+/* ==========================================================================
+ * YouTube Persian Translator — Single theme (light / dark) for extension UI
+ * --------------------------------------------------------------------------
+ * فقط برای پنجرهٔ افزونه و صفحهٔ تنظیمات.
+ * این فایل هیچ قاعدهٔ سراسری‌ای ندارد که به یوتیوب نشت کند؛ همهٔ قواعد
+ * به html.ypt-ui (صفحات خود افزونه) محدود شده‌اند. توکن‌های کارت شناور
+ * داخل content.css و روی #ypt-overlay تعریف می‌شوند.
+ * ========================================================================== */
+
+html.ypt-ui {
+  color-scheme: light;
+
+  --bg: #f2f5fb;
+  --bg-2: #e9eef8;
+  --card: #ffffff;
+  --card-2: #f6f8fd;
+  --line: #dfe6f2;
+  --text: #16203a;
+  --muted: #62708a;
+
+  --accent: #4f46e5;
+  --accent-2: #7c3aed;
+  --accent-soft: #eef1ff;
+  --accent-glow: rgba(79, 70, 229, 0.24);
+
+  --ok: #047857;
+  --warn: #b45309;
+  --err: #dc2626;
+
+  --shadow-light: #ffffff;
+  --shadow-dark: rgba(22, 32, 58, 0.14);
+  --shadow-card: 0 14px 36px rgba(22, 32, 58, 0.09), 0 2px 6px rgba(22, 32, 58, 0.05);
+  --shadow-raised: 0 6px 16px rgba(22, 32, 58, 0.08);
+
+  --radius-card: 18px;
+  --radius-control: 11px;
+  --transition-fast: 150ms;
+  --transition-normal: 220ms;
+}
+
+html.ypt-ui[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0f131d;
+  --bg-2: #141a27;
+  --card: #181f2e;
+  --card-2: #1e2637;
+  --line: #2b3549;
+  --text: #e9eefb;
+  --muted: #9aa7c0;
+
+  --accent: #8b93ff;
+  --accent-2: #b79cff;
+  --accent-soft: rgba(139, 147, 255, 0.14);
+  --accent-glow: rgba(139, 147, 255, 0.35);
+
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --err: #f87171;
+
+  --shadow-light: rgba(255, 255, 255, 0.04);
+  --shadow-dark: rgba(0, 0, 0, 0.55);
+  --shadow-card: 0 18px 44px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-raised: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+/* ------------------------------------------------------------------ reset */
+
+html.ypt-ui *,
+html.ypt-ui *::before,
+html.ypt-ui *::after {
+  box-sizing: border-box;
+}
+
+html.ypt-ui body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color var(--transition-normal) ease, color var(--transition-normal) ease;
+}
+
+html.ypt-ui ::selection {
+  background: var(--accent);
+  color: #fff;
+}

@@ -1,0 +1,254 @@
+﻿/* ============================================================================
+ * YouTube Persian Translator â€” Floating caption overlay
+ * ==========================================================================*/
+
+/* ØªÙˆÚ©Ù†â€ŒÙ‡Ø§ÛŒ ØªÙ… ÙÙ‚Ø· Ø±ÙˆÛŒ Ú©Ø§Ø±Øª Ø´Ù†Ø§ÙˆØ±Ø› Ù‡ÛŒÚ† Ù‚Ø§Ø¹Ø¯Ù‡Ù” Ø³Ø±Ø§Ø³Ø±ÛŒ Ø¨Ù‡ ØµÙØ­Ù‡Ù” ÛŒÙˆØªÛŒÙˆØ¨ Ù†Ø´Øª Ù†Ù…ÛŒâ€ŒÚ©Ù†Ø¯ */
+#ypt-overlay {
+  color-scheme: light;
+
+  --bg: #f2f5fb;
+  --bg-2: #e9eef8;
+  --card: #ffffff;
+  --card-2: #f6f8fd;
+  --line: #dfe6f2;
+  --text: #16203a;
+  --muted: #62708a;
+  --accent: #4f46e5;
+  --accent-2: #7c3aed;
+  --accent-soft: #eef1ff;
+  --accent-glow: rgba(79, 70, 229, 0.24);
+  --ok: #047857;
+  --warn: #b45309;
+  --err: #dc2626;
+  --shadow-light: #ffffff;
+  --shadow-dark: rgba(22, 32, 58, 0.4);
+  --shadow-card: 0 14px 36px rgba(22, 32, 58, 0.09), 0 2px 6px rgba(22, 32, 58, 0.05);
+  --shadow-raised: 0 6px 16px rgba(22, 32, 58, 0.08);
+  --radius-card: 18px;
+  --radius-control: 11px;
+
+  --ypt-size: 22px;
+  --ypt-opacity: 0.9;
+  --ypt-x: 50%;
+  --ypt-y: 82%;
+
+  position: fixed;
+  z-index: 2147483000;
+  top: var(--ypt-y);
+  left: var(--ypt-x);
+  box-sizing: border-box;
+  /* Ø¹Ø±Ø¶ Ø«Ø§Ø¨Øª: Ø¨Ø§ Ú©ÙˆØªØ§Ù‡/Ø¨Ù„Ù†Ø¯ Ø´Ø¯Ù† Ø¬Ù…Ù„Ù‡ØŒ Ù„Ø¨Ù‡â€ŒÙ‡Ø§ÛŒ Ú©Ø§Ø±Øª Ø¬Ø§Ø¨Ù‡â€ŒØ¬Ø§ Ù†Ù…ÛŒâ€ŒØ´ÙˆÙ†Ø¯ */
+  width: min(92vw, 760px);
+  margin: 0;
+  padding: 12px 22px 10px;
+  padding-inline-start: 34px;
+  border-radius: var(--radius-card, 16px);
+  background: color-mix(in srgb, var(--card) calc(var(--ypt-opacity, 0.9) * 100%), transparent);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 10px 28px var(--shadow-dark, rgba(0, 0, 0, 0.4)),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  color: var(--text);
+  font-family: "Vazirmatn", "Segoe UI", Tahoma, Arial, sans-serif;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  visibility: hidden;
+  contain: layout style;
+  --ypt-translate-y: -50%;
+  transform: translate(-50%, var(--ypt-translate-y)) scale(0.985);
+  transition: opacity 120ms ease, transform 140ms ease, visibility 0s linear 140ms;
+}
+
+#ypt-overlay[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0f131d;
+  --bg-2: #141a27;
+  --card: #181f2e;
+  --card-2: #1e2637;
+  --line: #2b3549;
+  --text: #e9eefb;
+  --muted: #9aa7c0;
+  --accent: #8b93ff;
+  --accent-2: #b79cff;
+  --accent-soft: rgba(139, 147, 255, 0.14);
+  --accent-glow: rgba(139, 147, 255, 0.35);
+  --ok: #34d399;
+  --warn: #fbbf24;
+  --err: #f87171;
+  --shadow-light: rgba(255, 255, 255, 0.04);
+  --shadow-dark: rgba(0, 0, 0, 0.55);
+  --shadow-card: 0 18px 44px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-raised: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+#ypt-overlay,
+#ypt-overlay *,
+#ypt-overlay *::before,
+#ypt-overlay *::after {
+  box-sizing: border-box;
+}
+
+#ypt-overlay.ypt-on {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, var(--ypt-translate-y)) scale(1);
+  transition-delay: 0s;
+}
+
+#ypt-overlay.ypt-snapped {
+  --ypt-translate-y: -100%;
+  /* Ù‡Ù†Ú¯Ø§Ù… Ú†Ø³Ø¨ÛŒØ¯Ù†ØŒ ØªØºÛŒÛŒØ± Ù…ÙˆÙ‚Ø¹ÛŒØª Ù†Ø¨Ø§ÛŒØ¯ Ø¨Ø§ Ø§Ù†ÛŒÙ…ÛŒØ´Ù† Ø¹Ù‚Ø¨ Ø¨Ù…Ø§Ù†Ø¯ */
+  transition: opacity 120ms ease, visibility 0s linear 120ms;
+}
+
+#ypt-overlay.ypt-dragging {
+  transition: opacity 120ms ease;
+  cursor: grabbing;
+}
+
+#ypt-overlay .ypt-original {
+  margin-bottom: 2px;
+  min-height: 1.45em;
+  max-height: 1.45em;
+  font-size: calc(var(--ypt-size) * 0.58);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--muted, rgba(255, 255, 255, 0.68));
+  unicode-bidi: plaintext;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#ypt-overlay .ypt-translation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Ø¯Ùˆ Ø®Ø· Ø±Ø²Ø±Ùˆ Ù…ÛŒâ€ŒØ´ÙˆØ¯ ØªØ§ Ú©Ø§Ø±Øª Ø¨Ø§ ÛŒÚ©/Ø¯Ùˆ Ø®Ø· Ø´Ø¯Ù† Ø¬Ù…Ù„Ù‡ ØªØºÛŒÛŒØ± Ø§Ø±ØªÙØ§Ø¹ Ù†Ø¯Ù‡Ø¯ */
+  min-height: 3.1em;
+  font-size: var(--ypt-size);
+  font-weight: 700;
+  line-height: 1.55;
+  unicode-bidi: plaintext;
+  overflow-wrap: anywhere;
+}
+
+#ypt-overlay .ypt-hidden {
+  display: none !important;
+}
+
+#ypt-overlay .ypt-meta {
+  margin-top: 3px;
+  height: 1.45em;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#ypt-overlay .ypt-meta[data-kind="error"] {
+  color: var(--err, #ff8a80);
+}
+
+#ypt-overlay .ypt-meta[data-kind="notice"] {
+  color: var(--warn, #ffd479);
+}
+
+/* ------------------------------------------------------------ drag handle */
+
+#ypt-overlay .ypt-grip {
+  position: absolute;
+  top: 4px;
+  inset-inline-start: 4px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control, 6px);
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  color: var(--text);
+  font-family: "Segoe UI Symbol", "Segoe UI", ui-monospace, monospace;
+  font-size: 14px;
+  line-height: 1;
+  cursor: grab;
+  opacity: 0.5;
+  pointer-events: auto;
+  touch-action: none;
+  transition: opacity 120ms ease, background 120ms ease;
+  box-shadow: 0 2px 6px var(--shadow-dark, rgba(0,0,0,0.3));
+}
+
+#ypt-overlay:hover .ypt-grip,
+#ypt-overlay .ypt-grip:focus-visible {
+  opacity: 0.95;
+  background: color-mix(in srgb, var(--bg) 30%, transparent);
+}
+
+#ypt-overlay .ypt-grip:active,
+#ypt-overlay.ypt-dragging .ypt-grip {
+  cursor: grabbing;
+}
+
+/* ------------------------------------------------------------------ pulse */
+
+#ypt-overlay.ypt-busy .ypt-meta[data-kind="loading"]::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-inline-end: 6px;
+  border-radius: 50%;
+  background: var(--accent, #7cb3ff);
+  vertical-align: middle;
+  animation: ypt-pulse 1s infinite ease-in-out;
+}
+
+@keyframes ypt-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ÙˆÙ‚ØªÛŒ ØªØ±Ø¬Ù…Ù‡ ÙØ¹Ø§Ù„ Ø§Ø³ØªØŒ Ø²ÛŒØ±Ù†ÙˆÛŒØ³ Ø§ØµÙ„ÛŒ ÛŒÙˆØªÛŒÙˆØ¨ Ù¾Ù†Ù‡Ø§Ù† Ù…ÛŒâ€ŒØ´ÙˆØ¯ (Ù…ØªÙ†Ø´ Ù‡Ù…Ú†Ù†Ø§Ù† Ø®ÙˆØ§Ù†Ø¯Ù‡ Ù…ÛŒâ€ŒØ´ÙˆØ¯) */
+html.ypt-hide-native .ytp-caption-window-container,
+html.ypt-hide-native .caption-window {
+  opacity: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ypt-overlay {
+    transition: none;
+  }
+  #ypt-overlay.ypt-busy .ypt-meta[data-kind="loading"]::before {
+    animation: none;
+  }
+}
+#ypt-overlay .ypt-net {
+  position: absolute;
+  top: 7px;
+  inset-inline-end: 8px;
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Ø¯Ø± Ø­Ø§Ù„Øª ØªØ§Ø±ÛŒÚ© Ø¨Ø±Ø§ÛŒ Ø®ÙˆØ§Ù†Ø§ÛŒÛŒ Ø¨Ù‡ØªØ±ØŒ Ø³Ø§ÛŒÙ‡Ù” Ù…ØªÙ† Ø§Ø¶Ø§ÙÙ‡ Ù…ÛŒâ€ŒØ´ÙˆØ¯ */
+#ypt-overlay[data-theme="dark"] .ypt-translation {
+  text-shadow: 0 1px 3px var(--shadow-dark);
+}
+

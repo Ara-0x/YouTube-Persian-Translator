@@ -1,0 +1,346 @@
+/* ============================================================================
+ * YouTube Persian Translator — Popup
+ * ==========================================================================*/
+
+body {
+  width: 360px;
+  margin: 0;
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--accent-soft) 0%, transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font: 13px/1.6 "Vazirmatn", "Segoe UI", Tahoma, Arial, sans-serif;
+  overflow: hidden;
+  unicode-bidi: plaintext;
+}
+
+code, kbd, samp, var, .ltr, [dir="ltr"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+main {
+  padding: 18px;
+  margin: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+/* ------------------------------------------------------------------- head */
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background: linear-gradient(145deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 8px 18px var(--accent-glow);
+}
+
+.brand-text {
+  min-width: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.muted {
+  margin: 1px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ------------------------------------------------------------------- card */
+
+.card {
+  padding: 4px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card-2);
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.field:last-child {
+  border-bottom: 0;
+}
+
+.field > label {
+  color: var(--text);
+  font-size: 12.5px;
+  flex: 0 0 auto;
+}
+
+/* ---------------------------------------------------------------- controls */
+
+select {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--card);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+}
+
+select:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+
+select:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  padding: 9px 12px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--card-2);
+  color: var(--text);
+  transition: transform var(--transition-fast) ease, background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease, box-shadow var(--transition-fast) ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.primary {
+  background: linear-gradient(145deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 20px var(--accent-glow);
+}
+
+.primary:hover {
+  border-color: transparent;
+  box-shadow: 0 10px 24px var(--accent-glow);
+}
+
+.ghost {
+  background: var(--card);
+  border-color: var(--line);
+}
+
+.icon-btn {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ----------------------------------------------------------------- switch */
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.switch .track {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 3px var(--shadow-dark);
+  transition: background var(--transition-fast) ease, border-color var(--transition-fast) ease;
+}
+
+.switch .thumb {
+  position: absolute;
+  top: 3px;
+  inset-inline-start: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--card);
+  box-shadow: 0 2px 6px var(--shadow-dark);
+  transition: inset-inline-start var(--transition-fast) ease, background var(--transition-fast) ease;
+}
+
+.switch input:checked + .track {
+  background: linear-gradient(145deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+}
+
+.switch input:checked + .track .thumb {
+  inset-inline-start: 23px;
+  background: #fff;
+}
+
+.switch.small .track {
+  width: 38px;
+  height: 22px;
+}
+
+.switch.small .thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.switch.small input:checked + .track .thumb {
+  inset-inline-start: 19px;
+}
+
+/* ---------------------------------------------------------------- content */
+
+.hint {
+  margin: 10px 2px 0;
+  min-height: 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.actions button {
+  flex: 1 1 0;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px;
+  background: transparent;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 500;
+  border-radius: 11px;
+}
+
+.link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.status {
+  margin: 6px 2px 0;
+  min-height: 16px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.status[data-kind="ok"] {
+  color: var(--ok);
+}
+
+.status[data-kind="warn"] {
+  color: var(--warn);
+}
+
+.status[data-kind="err"] {
+  color: var(--err);
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10.5px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--card-2);
+  font-family: ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

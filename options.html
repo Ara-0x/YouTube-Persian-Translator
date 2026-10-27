@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark" class="ypt-ui">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تنظیمات — YouTube Persian Translator</title>
+    <link rel="stylesheet" href="theme.css" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header class="head">
+        <div class="brand">
+          <span class="logo" aria-hidden="true">فا</span>
+          <div>
+            <h1>تنظیمات ترجمهٔ یوتیوب</h1>
+            <p class="muted">همهٔ تغییرات به‌صورت خودکار ذخیره می‌شوند.</p>
+          </div>
+        </div>
+        <span id="save-state" class="save-state" role="status" aria-live="polite"></span>
+      </header>
+      <!-- ----------------------------------------------------- appearance -->
+      <section class="card" id="appearance-card">
+        <h2>ظاهر و پوسته</h2>
+        <p class="muted small">حالت نمایش را انتخاب کنید. همهٔ بخش‌های افزونه با همین حالت هماهنگ می‌شوند.</p>
+        <div id="themeModes" class="theme-modes" role="group" aria-label="حالت نمایش">
+          <button type="button" class="theme-mode" data-theme-mode="light" aria-pressed="false">
+            <span class="theme-mode-icon" aria-hidden="true">☀️</span>
+            <span class="theme-mode-text">
+              <b>روشن</b>
+              <small>مناسب محیط‌های پرنور</small>
+            </span>
+          </button>
+          <button type="button" class="theme-mode" data-theme-mode="dark" aria-pressed="false">
+            <span class="theme-mode-icon" aria-hidden="true">🌙</span>
+            <span class="theme-mode-text">
+              <b>تاریک</b>
+              <small>مناسب تماشای شبانه</small>
+            </span>
+          </button>
+        </div>
+      </section>
+
+
+      <!-- ------------------------------------------------------- general -->
+      <section class="card">
+        <h2>تنظیمات اصلی</h2>
+
+        <div class="grid">
+          <label class="row">
+            <span>مترجم فعال</span>
+            <select id="provider"></select>
+          </label>
+
+          <label class="row">
+            <span>زبان مقصد</span>
+            <select id="targetLang"></select>
+          </label>
+
+          <label class="row">
+            <span>حالت کار</span>
+            <select id="mode">
+              <option value="translate">ترجمه به زبان مقصد</option>
+              <option value="passthrough">فقط نمایش زیرنویس یوتیوب</option>
+            </select>
+          </label>
+
+          <label class="row">
+            <span>جمله‌های زمینه برای هوش مصنوعی</span>
+            <select id="contextLines">
+              <option value="0">بدون زمینه (سریع‌ترین)</option>
+              <option value="1">۱ جملهٔ قبل</option>
+              <option value="2">۲ جملهٔ قبل (پیشنهادی)</option>
+              <option value="3">۳ جملهٔ قبل</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="check">
+          <input id="fallbackToGoogle" type="checkbox" />
+          <span>اگر مترجم اصلی خطا داد، با گوگل ترنسلیت ترجمه شود</span>
+        </label>
+
+        <label class="check">
+          <input id="showLatency" type="checkbox" />
+          <span>نمایش تأخیر ترجمه (میلی‌ثانیه) روی کارت</span>
+        </label>
+      </section>
+
+      <!-- ---------------------------------------------------------- keys -->
+      <section class="card">
+        <h2>کلیدهای API</h2>
+        <p class="muted small">
+          کلیدها فقط روی همین دستگاه و در حافظهٔ افزونه ذخیره می‌شوند و مستقیم به سرویس
+          مربوطه ارسال می‌شوند.
+        </p>
+
+        <p class="muted small">گوگل ترنسلیت بدون کلید کار می‌کند؛ نیازی به تنظیم کلید نیست.</p>
+
+        <div class="key-row">
+          <label for="key-gemini" class="key-label">کلید Gemini</label>
+          <input
+            id="key-gemini"
+            type="password"
+            placeholder="فقط برای دوبلهٔ Gemini لازم است"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="toggle-gemini" class="icon" type="button" title="نمایش/پنهان‌کردن کلید" aria-label="نمایش/پنهان‌کردن کلید">👁</button>
+        </div>
+        <p class="helper">کلید Gemini اختیاری است و فقط برای موتور دوبلهٔ Gemini استفاده می‌شود.</p>
+
+      </section>
+
+      <!-- -------------------------------------------------------- models -->
+      <section class="card">
+        <h2>مدل و کیفیت</h2>
+
+        <div class="grid">
+          <label class="row">
+            <span>مدل دوبلهٔ Gemini</span>
+            <select id="model-geminiTts"></select>
+          </label>
+          <label class="row">
+            <span>صدای دوبلهٔ Gemini</span>
+            <select id="geminiVoice"></select>
+          </label>
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------- overlay -->
+      <section class="card">
+        <h2>نمایش زیرنویس</h2>
+
+        <div class="grid">
+          <label class="row">
+            <span>موقعیت زیرنویس</span>
+            <select id="position">
+              <option value="bottom">پایین تصویر</option>
+              <option value="top">بالای تصویر</option>
+              <option value="custom">سفارشی (کشیده‌شده)</option>
+            </select>
+          </label>
+
+          <label class="row">
+            <span>اندازهٔ قلم <b id="fontSizeValue"></b></span>
+            <input id="fontSize" type="range" min="14" max="40" step="1" />
+          </label>
+
+          <label class="row">
+            <span>شفافیت پس‌زمینه <b id="opacityValue"></b></span>
+            <input id="opacity" type="range" min="0.3" max="1" step="0.05" />
+          </label>
+        </div>
+
+        <label class="check">
+          <input id="bilingual" type="checkbox" />
+          <span>نمایش متن اصلی بالای ترجمه</span>
+        </label>
+        <label class="check">
+          <input id="hideNativeCaptions" type="checkbox" />
+          <span>پنهان‌کردن زیرنویس اصلی یوتیوب هنگام ترجمه</span>
+        </label>
+          <label class="check">
+            <input id="snapToCaptions" type="checkbox" />
+            <span>چسبیدن کارت ترجمه به محل زیرنویس یوتیوب</span>
+          </label>
+
+        <div class="buttons">
+          <button id="resetPosition" class="ghost" type="button">بازنشانی موقعیت کارت</button>
+        </div>
+        <p class="helper">
+          کارت ترجمه را می‌توانید مستقیم روی ویدیو از دستگیرهٔ (گوشهٔ کارت) بکشید.
+          دوبار کلیک روی همان دستگیره، کارت را به پایین تصویر برمی‌گرداند.
+          با فعال‌کردن «چسبیدن به زیرنویس»، کارت دقیقاً روی متن زیرنویس یوتیوب هم‌تراز می‌شود و
+          جابه‌جایی دستی، این گزینه را خودکار خاموش می‌کند.
+        </p>
+      </section>
+
+      <!-- -------------------------------------------------------- dubbing -->
+      <section class="card">
+        <h2>دوبلهٔ صوتی</h2>
+
+        <div class="grid">
+          <label class="row">
+            <span>موتور دوبله</span>
+            <select id="dubbingEngine">
+              <option value="browser">مرورگر — فوری و رایگان</option>
+              <option value="gemini">Gemini — طبیعی‌تر، کمی کندتر</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="check">
+          <input id="dubbing" type="checkbox" />
+          <span>پخش ترجمه به‌صورت صدا همزمان با ویدیو</span>
+        </label>
+
+        <p class="helper">
+          دوبلهٔ مرورگر از صداهای نصب‌شدهٔ سیستم استفاده می‌کند (برای فارسی باید صدای fa-IR
+          نصب باشد). دوبلهٔ Gemini به کلید API نیاز دارد و صدای طبیعی‌تری می‌دهد.
+        </p>
+      </section>
+
+      <!-- ----------------------------------------------------------- data -->
+      <section class="card">
+        <h2>داده‌ها</h2>
+        <div class="buttons">
+          <button id="clearCache" class="ghost" type="button">پاک‌سازی کش ترجمه</button>
+          <button id="resetSettings" class="danger" type="button">بازگرداندن تنظیمات پیش‌فرض</button>
+        </div>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="card about">
+        <h2>درباره</h2>
+        <p class="muted small">
+          YouTube Persian Translator نسخهٔ ۳ — ترجمهٔ زندهٔ زیرنویس یوتیوب با گوگل ترنسلیت و
+          دوبلهٔ صوتی اختیاری با Gemini.
+        </p>
+        <p class="muted small">
+          میان‌بر صفحه‌کلید:
+          <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> برای فعال/غیرفعال‌کردن ترجمه و
+          <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> برای دوبله.
+        </p>
+      </section>
+    </main>
+
+    <script src="providers.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>
